@@ -21,11 +21,16 @@ iter = 1;
 for i = 1:length(CompiledParticlesPlusGP256{1})
     for ch = 1:2
         % basic metadata
-        spot_struct(iter).setID = str2num(CompiledParticlesPlusGP256{ch}(i).Prefix(end));
-        spot_struct(iter).ncID = i; %NL: I'm assuming green and red traces at same index are from same nucles...
-        spot_struct(iter).OriginalParticle = CompiledParticlesPlusGP256{ch}(i).OriginalParticle;
-        spot_struct(iter).Nucleus = CompiledParticlesPlusGP256{ch}(i).Nucleus;
+        setID = str2num(CompiledParticlesPlusGP256{ch}(i).Prefix(end));
+        spot_struct(iter).setID = setID;        
+        op = CompiledParticlesPlusGP256{ch}(i).OriginalParticle;
+        spot_struct(iter).OriginalParticle = op;
+        spot_struct(iter).particleID = eval([num2str(setID) '.' sprintf('%04d',op)]);
+        Nucleus = CompiledParticlesPlusGP256{ch}(i).Nucleus;
+        spot_struct(iter).Nucleus = Nucleus;
+        spot_struct(iter).ncID = eval([num2str(setID) '.' sprintf('%04d',Nucleus)]);
         spot_struct(iter).ch = ch;
+        spot_struct(iter).cpGroup = (ch-1)*2 + CompiledParticlesPlusGP256{ch}(i).Paired;
         spot_struct(iter).Paired = CompiledParticlesPlusGP256{ch}(i).Paired;
         % raw time and fluo
         et_ft = et_vec==spot_struct(iter).setID;
@@ -39,6 +44,7 @@ for i = 1:length(CompiledParticlesPlusGP256{1})
         spot_struct(iter).fluoInterp = interp1(spot_struct(iter).time, spot_struct(iter).fluo, spot_struct(iter).timeInterp,'linear','extrap');
         % add dummy variables
         spot_struct(iter).APPosParticleInterp = ones(size(spot_struct(iter).timeInterp));
+        spot_struct(iter).TraceQCFlag = 1;
         % increment
         iter = iter + 1;
     end
