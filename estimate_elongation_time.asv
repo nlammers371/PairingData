@@ -1,0 +1,13 @@
+clear
+close all
+
+addpath(genpath('./utilities'));
+
+% attempt to estimate elongation time from autocorrelatio signal
+load('./out/spot_struct.mat')
+
+max_time = max([spot_struct.timInterp])
+
+% generate array of traces
+[wt_autocorr, a_boot_errors, wt_dd, dd_boot_errors, wt_ddd, ddd_boot_errors] = ...
+    weighted_autocorrelation(traces, lags, bootstrap,n_boots,trace_weights);
