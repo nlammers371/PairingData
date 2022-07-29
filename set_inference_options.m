@@ -18,7 +18,7 @@ inferenceInfo.apBins = [];%linspace(-.2,.2,10);
 inferenceInfo.Tres = 30;
 
 % set core model specs
-inferenceInfo.modelSpecs.nStates = 3; % number of states in system
+inferenceInfo.modelSpecs.nStates = 2; % number of states in system
 inferenceInfo.modelSpecs.nSteps = 6; % number of steps to traverse gene
 inferenceInfo.modelSpecs.alphaFrac =  1302/6444;%1275 / 4670;%
 
