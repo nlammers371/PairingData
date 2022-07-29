@@ -23,7 +23,7 @@ inferenceInfo.modelSpecs.nSteps = 6; % number of steps to traverse gene
 inferenceInfo.modelSpecs.alphaFrac =  1302/6444;%1275 / 4670;%
 
 % other info
-inferenceInfo.AdditionalGroupingVariable = 'ch';%'Stripe'
+inferenceInfo.AdditionalGroupingVariable = 'Paired';%'Stripe'
 inferenceInfo.SampleSize = 3000;
 inferenceInfo.useQCFlag = true;
 inferenceInfo.n_localEM = 25;
